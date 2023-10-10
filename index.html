@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>   
+    <div class="container">
+        <div class="current-info">
+
+            <div class="date-container">
+                <div class="time" id="time">
+                    12.30 <span id="am-pm">PM</span>
+                </div>
+                <div class="date" id="date">
+                    Tuesday, 01 October
+                </div>
+
+                <div class="others" id="current-weather-items">
+                    <div class="weather-items">
+                        <p>Humidity</p>
+                        <p>95.2%</p>
+                    </div>    
+                    <div class="weather-items">
+                        <p>Pressure</p>
+                        <p>121</p>
+                    </div> 
+                    <div class="weather-items">
+                        <p>Wind Speed</p>
+                        <p>222</p>
+                    </div> 
+                                    
+                </div>
+            </div>
+
+            <div class="place-container">
+                <div class="time-zone" id="time-zone">Asia/pentoll</div>
+                <div id="country" class="country">ID</div>
+            </div>
+        </div>                
+    </div>
+    <div class="input-container">
+        <div class="form-field">        
+            <input type="text" placeholder="Enter city name here" id="city"></input>            
+            <button id="button-input" onclick="getLatLon()"><img src="img/search.png" width="20px"></button>
+        </div>
+    </div>
+
+    <div class="future-forecast">
+        <div class="today" id="current-temp">
+            <image src="https://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="w-icon"></image>
+            <div class="other">
+                <div class="day">Tuesday</div>
+                <div class="weather">Day - 32.6&#176; C</div>
+                <div class="temp">Night - 26.6&#176; C</div>
+            </div>
+        </div>
+
+        <div class="weather-forecast" id="weather-forecast">
+            <div class="weather-forecast-item">
+                <div class="day">Wed</div>
+                <image src="https://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="w-icon"></image>
+                <div class="weather">Day - 32.6&#176; C</div>
+                <div class="temp">Night - 26.6&#176; C</div>
+            </div>
+
+            <div class="weather-forecast-item">
+                <div class="day">Wed</div>
+                <image src="https://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="w-icon"></image>
+                <div class="weather">Day - 32.6&#176; C</div>
+                <div class="temp">Night - 26.6&#176; C</div>
+            </div>
+            
+            <div class="weather-forecast-item">
+                <div class="day">Wed</div>
+                <image src="https://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="w-icon"></image>
+                <div class="weather">Day - 32.6&#176; C</div>
+                <div class="temp">Night - 26.6&#176; C</div>
+            </div>
+            
+            <div class="weather-forecast-item">
+                <div class="day">Wed</div>
+                <image src="https://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="w-icon"></image>
+                <div class="weather">Day - 32.6&#176; C</div>
+                <div class="temp">Night - 26.6&#176; C</div>
+            </div>            
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="weather.js"></script>
+</body>
+</html>
