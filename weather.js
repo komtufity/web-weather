@@ -45,7 +45,7 @@ function getWeatherFirstTime(){
 function getLatLon(){
     const city = document.getElementById('city').value;
 
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${API_KEY}`).then(res => res.json()).then(data => {
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${API_KEY}`).then(res => res.json()).then(data => {
         console.log(data);
         if (Object.keys(data).length == 0) alert(`There's no City named ${city}, check the spelling of the city`)
         else getWeatherData(data);
