@@ -8,25 +8,6 @@ const currentTempEl = document.getElementById("current-temp");
 
 const API_KEY = '7f87fea8754da8a7e323e71f9751623b';
 
-setInterval(() => {
-    const time = new Date();
-    const month = time.getMonth();
-    const monthString = time.toLocaleString('en-US', { month: "short" });
-    const date = time.getDate();
-    const day = time.getDay();
-    const dayString = time.toLocaleString('en-US', { weekday: "long" });
-    const hour = time.getHours();
-    const hoursIn12HrFormat = hour >= 13 ? hour % 12 : hour;
-    const hoursleadingzero = (hoursIn12HrFormat.toString()).padStart(2, "0");
-    const minutes = time.getMinutes();
-    const minutesleadingzero = (minutes.toString()).padStart(2, "0");
-    const ampm = hour >= 12 ? 'PM' : 'AM'
-
-    timeEl.innerHTML = `${hoursleadingzero}` + ':' + `${minutesleadingzero}` + ' ' + `<span id="am-pm">${ampm}</span>`;
-    dateEl.innerHTML = `${dayString}, ` + `${date} ` + `${monthString}`; 
-    timezone.innerHTML = `${Intl.DateTimeFormat().resolvedOptions().timeZone}`;
-}, 1000);
-
 getWeatherFirstTime();
 
 function getWeatherFirstTime(){
@@ -62,14 +43,28 @@ function getWeatherData(data){
 }
 
 function showWeatherData(data){
-    const time = new Date();
+    const timeNow = new Date();
+    const time = new Date(timeNow.getTime() + (data.city.timezone - 25200) * 1000);
+    const month = time.getMonth();
+    const monthString = time.toLocaleString('en-US', { month: "short" });
+    const date = time.getDate();        
     const day = time.getDay();
     const dayString = time.toLocaleString('en-US', { weekday: "long" });
+    const hour = time.getHours();
+    const hoursIn12HrFormat = hour >= 13 ? hour % 12 : hour;
+    const hoursleadingzero = (hoursIn12HrFormat.toString()).padStart(2, "0");
+    const minutes = time.getMinutes();
+    const minutesleadingzero = (minutes.toString()).padStart(2, "0");
+    const ampm = hour >= 12 ? 'PM' : 'AM'
     let {humidity, pressure} = data.list[0].main;
-    let {sunrise, sunset} = data.city;
+    const sunrise = new Date((data.city.sunrise + data.city.timezone - 25200) * 1000);
+    const sunset = new Date((data.city.sunset + data.city.timezone - 25200) * 1000);
     let {speed} = data.list[0].wind;
 
-
+    timeEl.innerHTML = `${hoursleadingzero}:${minutesleadingzero} <span id="am-pm">${ampm}</span>`;
+    dateEl.innerHTML = `${dayString}, ` + `${date} ` + `${monthString}`; 
+    timezone.innerHTML = `${data.city.name}`;
+    countryEl.innerHTML = `${data.city.country}`
 
     currentWeatherItemEl.innerHTML =
     `<div class="weather-items">
@@ -86,11 +81,11 @@ function showWeatherData(data){
     </div>
     <div class="weather-items">
         <p>Sunrise</p>
-        <p>${window.moment(sunrise * 1000).format(`hh:mm a`)}</p>
+        <p>${window.moment(sunrise).format("hh:mm a")}</p>
     </div>
     <div class="weather-items">
         <p>Sunset</p>
-        <p>${window.moment(sunset * 1000).format(`hh:mm a`)}</p>
+        <p>${window.moment(sunset).format("hh:mm a")}</p>
     </div>`
 
     let otherDayForecast = ''
@@ -115,9 +110,11 @@ function showWeatherData(data){
             
             `
         }
+
+        weatherForecastEl.innerHTML = otherDayForecast;
     })
 
-    weatherForecastEl.innerHTML = otherDayForecast;
+
 }
 
 var input = document.getElementById('city');
